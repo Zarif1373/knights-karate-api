@@ -30,7 +30,7 @@ Feature: Security token verify API calls
   # Send invalid user and valid token
   # Response status 400
   # And response contain message "Wrong username send along with Token"
-  
+
   Scenario: Send invalid username valid token to /api/token/verify
     And path "/api/token"
     And request {"username": "supervisor", "password": "tek_supervisor"}
