@@ -1,7 +1,8 @@
+@Regression
 Feature: Plan Code Testing
 
   Background: Setup test
-    Given url "https://qa.insurance-api.tekschool-students.com"
+    Given url BASE_URL
 
   Scenario: Validate /api/plans/get-all-plan-code
     Given path "/api/token"
@@ -9,9 +10,13 @@ Feature: Plan Code Testing
     When method post
     Then status 200
     And print response
+    * def validToken = "Bearer " + response.token
     Given path "/api/plans/get-all-plan-code"
-    And header Authorization = "Bearer " + response.token
+    And header Authorization = validToken
     When method get
     Then status 200
     And print response
-
+    And assert response[0].planExpired == false
+    And assert response[1].planExpired == false
+    And assert response[2].planExpired == false
+    And assert response[3].planExpired == false
